@@ -1,0 +1,3 @@
+[submodule "src/generate_parameter_library"]
+	path = src/generate_parameter_library
+	url = https://github.com/PickNikRobotics/generate_parameter_library.git
