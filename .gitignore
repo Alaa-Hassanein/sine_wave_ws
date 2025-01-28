@@ -185,4 +185,4 @@ cython_debug/
 # rod2 build install log folders
 build/
 install/
-logs/
+log/
