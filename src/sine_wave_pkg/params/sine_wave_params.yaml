@@ -1,0 +1,11 @@
+sine_wave_publisher:
+  ros__parameters:
+    topic_name: /sine_wave
+    amplitude: 1.0
+    phase: 0.0
+    angular_frequency: 1.0
+    frequency: 10.0
+
+sine_wave_subscriber:
+  ros__parameters:
+    topic_name: /sine_wave
