@@ -6,7 +6,8 @@ from generate_parameter_library_py.setup_helper import generate_parameter_module
 
 generate_parameter_module(
   "sine_wave_parameters", # python module name for parameter library
-  "/home/alaa/sine_wave_ws/src/sine_wave_pkg/params/sine_wave_prams_sturcture.yaml", # path to input yaml file
+  os.path.join(os.getenv('AMENT_PREFIX_PATH').split(os.pathsep)[0],
+                                       'share', 'sine_wave_pkg','params', 'sine_wave_prams_sturcture.yaml'), # path to input yaml file
 )
 package_name = 'sine_wave_pkg'
 
@@ -35,8 +36,6 @@ setup(
         'console_scripts': [
         'sine_wave_publisher = sine_wave_pkg.sine_wave_publisher:main',
         'sine_wave_subscriber = sine_wave_pkg.sine_wave_subscriber:main',
-        'grayscale_service_server = sine_wave_pkg.grayscale_service_server:main',
-        'grayscale_service_client = sine_wave_pkg.grayscale_service_client:main',
         ],
     },
 )
