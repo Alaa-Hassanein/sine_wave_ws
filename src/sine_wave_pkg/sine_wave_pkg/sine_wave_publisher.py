@@ -9,39 +9,24 @@ from rclpy.node import Node
 from std_msgs.msg import String, Float64
 from rcl_interfaces.msg import SetParametersResult
 import math
+from sine_wave_pkg.sine_wave_parameters import sine_wave_params
 
 
 class SineWavePublisher(Node):
 
     def __init__(self):
         super().__init__('sine_wave_publisher')
-        self.string_publisher = self.create_publisher(String, 'string', 10)
-        self.string_timer = self.create_timer(1.0, self.string_publish_message)
 
-        self.declare_parameter('topic_name', '/sine_wave')
-        self.declare_parameter('amplitude', 1.0)
-        self.declare_parameter('phase', 0.0)
-        self.declare_parameter('angular_frequency', 1.0)
-        self.declare_parameter('frequency', 10.0)
+        self.param_listener = sine_wave_params.ParamListener(self)
+        self.params = self.param_listener.get_params()
 
-        self.sine_wave_topic = self.get_parameter(
-            'topic_name').get_parameter_value().string_value
-        self.amplitude = self.get_parameter(
-            'amplitude').get_parameter_value().double_value
-        self.phase = self.get_parameter(
-            'phase').get_parameter_value().double_value
-        self.angular_frequency = self.get_parameter(
-            'angular_frequency').get_parameter_value().double_value
-        self.frequency = self.get_parameter(
-            'frequency').get_parameter_value().double_value
+        self.amplitude = self.params.amplitude
+        self.phase = self.params.phase
+        self.angular_frequency = self.params.angular_frequency
+        self.frequency = self.params.frequency
+        self.sine_wave_topic = self.params.topic_name
 
         self.add_on_set_parameters_callback(self.parameter_callback)
-
-        # self.amplitude = 1.0
-        # self.phase = 0.0
-        # self.angular_frequency = 1.0
-        # self.frequency = 10.0
-        # self.sine_wave_topic = 'sine_wave'
 
         self.sine_wave_publisher = self.create_publisher(
             Float64, self.sine_wave_topic, 10)
@@ -51,19 +36,24 @@ class SineWavePublisher(Node):
 
         self.get_logger().info('SineWavePublisher node has been started.')
 
-    def string_publish_message(self):
-        msg = String()
-        msg.data = 'Hello, world!'
-        self.string_publisher.publish(msg)
-        self.get_logger().info('Publishing: "%s"' % msg.data)
+    def update_timer(self, new_frequency):
+        self.frequency = new_frequency
+        self.sine_wave_timer.cancel()
+        self.sine_wave_timer = self.create_timer(
+            1.0 / self.frequency, self.sine_wave_publish_message)
 
     def sine_wave_publish_message(self):
+
+        if self.param_listener.is_old(self.params):
+            self.params = self.param_listener.get_params()
+
         msg = Float64()
         msg.data = self.amplitude * \
-            math.sin(self.angular_frequency *
-                     self.angle + self.phase)
+            math.sin(self.angular_frequency * self.angle + self.phase)
         self.sine_wave_publisher.publish(msg)
-        self.angle += 0.1
+        self.angle += 0.0174533
+
+        self.update_timer(self.frequency)
 
     def parameter_callback(self, params):
         for param in params:

@@ -1,0 +1,27 @@
+sine_wave_params:
+  frequency:
+    type: double
+    default_value: 0.0
+    description: "wave frequency"
+    validation:
+      bounds<>: [0.0, 100.0]
+
+  amplitude:
+    type: double
+    default_value: 0.0
+    description: "wave amplitude"
+
+  phase:
+    type: double
+    default_value: 0.0
+    description:  "wave phase"
+
+  angular_frequency:
+    type: double
+    default_value: 0.0
+    description:  "wave angular frequency"
+
+  topic_name:
+    type: string
+    default_value: "/sine_wave"
+    description:  "wave topic name"

@@ -2,11 +2,17 @@ from setuptools import find_packages, setup
 from glob import glob
 import os
 
+from generate_parameter_library_py.setup_helper import generate_parameter_module
+
+generate_parameter_module(
+  "sine_wave_parameters", # python module name for parameter library
+  "/home/alaa/sine_wave_ws/src/sine_wave_pkg/params/sine_wave_prams_sturcture.yaml", # path to input yaml file
+)
 package_name = 'sine_wave_pkg'
 
 setup(
     name=package_name,
-    version='0.0.1',
+    version='0.0.2',
     packages=find_packages(exclude=['test']),
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -14,6 +20,9 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', glob('launch/*.py')),
         ('share/' + package_name + '/params', glob('params/*.yaml')),
+        ('share/' + package_name + '/images', glob('images/*.jpg')),
+        #('share/' + package_name + '/srv', glob('srv/*.srv')),
+        
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -26,6 +35,8 @@ setup(
         'console_scripts': [
         'sine_wave_publisher = sine_wave_pkg.sine_wave_publisher:main',
         'sine_wave_subscriber = sine_wave_pkg.sine_wave_subscriber:main',
+        'grayscale_service_server = sine_wave_pkg.grayscale_service_server:main',
+        'grayscale_service_client = sine_wave_pkg.grayscale_service_client:main',
         ],
     },
 )
