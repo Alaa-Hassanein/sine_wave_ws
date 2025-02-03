@@ -51,7 +51,7 @@ target_link_libraries(sine_wave_publisher_cpp PUBLIC sine_wave_parameters)
 
 
 
-install(TARGETS sine_wave_publisher_cpp 
+install(TARGETS sine_wave_publisher_cpp
   DESTINATION lib/${PROJECT_NAME})
 
 install(PROGRAMS
@@ -60,7 +60,7 @@ install(PROGRAMS
   scripts/sine_wave_publisher.py
   scripts/sine_wave_subscriber.py
   test/test_sine_wave_publisher.py
-  
+
   DESTINATION lib/${PROJECT_NAME}
 )
 

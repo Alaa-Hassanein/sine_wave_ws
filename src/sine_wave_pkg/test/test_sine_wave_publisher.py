@@ -8,7 +8,7 @@ import yaml
 import os
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def rclpy_init_shutdown():
     rclpy.init()
     yield
@@ -19,26 +19,8 @@ def rclpy_init_shutdown():
 def node(rclpy_init_shutdown):
     node = SineWavePublisher()
 
-
     yield node
     node.destroy_node()
-
-def get_workspace_directory(current_path):
-
-        path_parts = current_path.split(os.sep)
-
-        if "install" in path_parts:
-            workspace_index = path_parts.index("install") - 1
-        elif "src" in path_parts:
-            workspace_index = path_parts.index("src") - 1
-        else:
-            raise ValueError("Workspace directory not found in the path")
-
-        workspace_directory = os.sep.join(path_parts[: workspace_index + 1])
-        return workspace_directory
-    
-
-
 
 
 def test_sine_wave_publish_message(node):
@@ -56,13 +38,12 @@ def test_update_timer(node):
 
 def test_parameter_callback(node):
     params = [
+        rclpy.parameter.Parameter("amplitude", rclpy.Parameter.Type.DOUBLE, 2.0),
+        rclpy.parameter.Parameter("phase", rclpy.Parameter.Type.DOUBLE, 1.0),
         rclpy.parameter.Parameter(
-            'amplitude', rclpy.Parameter.Type.DOUBLE, 2.0),
-        rclpy.parameter.Parameter('phase', rclpy.Parameter.Type.DOUBLE, 1.0),
-        rclpy.parameter.Parameter(
-            'angular_frequency', rclpy.Parameter.Type.DOUBLE, 0.5),
-        rclpy.parameter.Parameter(
-            'frequency', rclpy.Parameter.Type.DOUBLE, 0.5)
+            "angular_frequency", rclpy.Parameter.Type.DOUBLE, 0.5
+        ),
+        rclpy.parameter.Parameter("frequency", rclpy.Parameter.Type.DOUBLE, 0.5),
     ]
     result = node.parameter_callback(params)
     assert result.successful

@@ -6,11 +6,12 @@ from sine_wave_pkg.srv import GetImage
 import cv2
 import numpy as np
 
+
 class ImageServer(Node):
 
     def __init__(self):
-        super().__init__('image_server')
-        self.srv = self.create_service(GetImage, 'get_image', self.get_image_callback)
+        super().__init__("image_server")
+        self.srv = self.create_service(GetImage, "get_image", self.get_image_callback)
 
     def get_image_callback(self, request, response):
         input_path = request.input_path
@@ -26,7 +27,6 @@ class ImageServer(Node):
             gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             image_array = np.array(gray_image)
             image_data = image_array.flatten().tolist()
-            
 
             response.success = True
             response.message = image_data
@@ -34,9 +34,9 @@ class ImageServer(Node):
 
         except Exception as e:
             response.success = False
-            
 
         return response
+
 
 def main(args=None):
     rclpy.init(args=args)
@@ -44,5 +44,6 @@ def main(args=None):
     rclpy.spin(image_server)
     rclpy.shutdown()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
