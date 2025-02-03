@@ -67,6 +67,7 @@ install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}/
 )
 
+file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME})
 add_custom_command(
   OUTPUT ${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/sine_wave_parameters.py
   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_parameter.py >
@@ -79,5 +80,7 @@ ament_export_include_directories(include)
 
 add_custom_target(run_python_script ALL DEPENDS
   ${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/sine_wave_parameters.py)
+
+file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME})
 
 ament_package()

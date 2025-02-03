@@ -47,7 +47,7 @@ def main(args=None):
 
     
     response = image_client.send_request(os.path.join(image_dir, "test.jpg"))
-    print(response)
+
     if response.success:
         print("Received grayscale image:")
         
