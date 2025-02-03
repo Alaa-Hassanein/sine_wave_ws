@@ -1,14 +1,14 @@
 sine_wave_params:
   frequency:
     type: double
-    default_value: 0.0
+    default_value: 10.0
     description: "wave frequency"
     validation:
       bounds<>: [0.0, 100.0]
 
   amplitude:
     type: double
-    default_value: 0.0
+    default_value: 1.0
     description: "wave amplitude"
 
   phase:
@@ -18,7 +18,7 @@ sine_wave_params:
 
   angular_frequency:
     type: double
-    default_value: 0.0
+    default_value: 1.0
     description:  "wave angular frequency"
 
   topic_name:
