@@ -14,6 +14,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(generate_parameter_library REQUIRED)
+find_package(ament_cmake_gtest REQUIRED)
 
 
 
@@ -48,11 +49,9 @@ ament_target_dependencies(sine_wave_publisher_cpp PUBLIC ${THIS_PACKAGE_INCLUDE_
 target_link_libraries(sine_wave_publisher_cpp PUBLIC sine_wave_parameters)
 
 
-add_executable(sine_wave_subscriber_cpp src/sine_wave_subscriber.cpp)
-ament_target_dependencies(sine_wave_subscriber_cpp PUBLIC ${THIS_PACKAGE_INCLUDE_DEPENDS})
-target_link_libraries(sine_wave_subscriber_cpp PUBLIC sine_wave_parameters)
 
-install(TARGETS sine_wave_publisher_cpp sine_wave_subscriber_cpp
+
+install(TARGETS sine_wave_publisher_cpp 
   DESTINATION lib/${PROJECT_NAME})
 
 install(PROGRAMS
@@ -60,7 +59,7 @@ install(PROGRAMS
   scripts/gray_image_client.py
   scripts/sine_wave_publisher.py
   scripts/sine_wave_subscriber.py
-  test/test_sine_wave_publisher.py
+  
   DESTINATION lib/${PROJECT_NAME}
 )
 
