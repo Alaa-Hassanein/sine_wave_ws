@@ -24,13 +24,7 @@ To build the workspace, follow these steps:
 
 3. Build the workspace:
     ```sh
-    colcon build --packages-select generate_parameter_library_py
-
-    colcon build --packages-select parameter_traits
-
-    colcon build --packages-select generate_parameter_library    
-
-    colcon build --packages-select sine_wave_pkg
+    colcon build 
     ```
 
 ## Running the Nodes
