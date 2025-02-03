@@ -15,7 +15,15 @@ find_package(rosidl_default_generators REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(generate_parameter_library REQUIRED)
 
+
+
 set(INSTALL_DIR ${CMAKE_INSTALL_PREFIX})
+
+set(THIS_PACKAGE_INCLUDE_DEPENDS
+  rclcpp
+  std_msgs
+
+)
 
 generate_parameter_library(
   sine_wave_parameters
@@ -36,10 +44,13 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 
 add_executable(sine_wave_publisher_cpp src/sine_wave_publisher.cpp)
-ament_target_dependencies(sine_wave_publisher_cpp rclcpp std_msgs)
+ament_target_dependencies(sine_wave_publisher_cpp PUBLIC ${THIS_PACKAGE_INCLUDE_DEPENDS})
+target_link_libraries(sine_wave_publisher_cpp PUBLIC sine_wave_parameters)
+
 
 add_executable(sine_wave_subscriber_cpp src/sine_wave_subscriber.cpp)
-ament_target_dependencies(sine_wave_subscriber_cpp rclcpp std_msgs)
+ament_target_dependencies(sine_wave_subscriber_cpp PUBLIC ${THIS_PACKAGE_INCLUDE_DEPENDS})
+target_link_libraries(sine_wave_subscriber_cpp PUBLIC sine_wave_parameters)
 
 install(TARGETS sine_wave_publisher_cpp sine_wave_subscriber_cpp
   DESTINATION lib/${PROJECT_NAME})
@@ -49,6 +60,7 @@ install(PROGRAMS
   scripts/gray_image_client.py
   scripts/sine_wave_publisher.py
   scripts/sine_wave_subscriber.py
+  test/test_sine_wave_publisher.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -63,6 +75,8 @@ add_custom_command(
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   COMMENT "Running generate_parameter.py to generate params.py"
 )
+
+ament_export_include_directories(include)
 
 add_custom_target(run_python_script ALL DEPENDS
   ${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/sine_wave_parameters.py)
