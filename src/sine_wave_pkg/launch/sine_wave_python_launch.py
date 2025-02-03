@@ -23,6 +23,7 @@ def get_workspace_directory(current_path):
 
         workspace_directory = os.sep.join(path_parts[: workspace_index + 1])
         return workspace_directory
+    
 workspace_directory = get_workspace_directory(os.path.abspath(__file__))
 params_dir = os.path.join(workspace_directory, "src", "sine_wave_pkg", "params","sine_wave_params.yaml")
 

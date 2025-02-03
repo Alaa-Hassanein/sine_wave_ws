@@ -59,6 +59,7 @@ install(PROGRAMS
   scripts/gray_image_client.py
   scripts/sine_wave_publisher.py
   scripts/sine_wave_subscriber.py
+  test/test_sine_wave_publisher.py
   
   DESTINATION lib/${PROJECT_NAME}
 )

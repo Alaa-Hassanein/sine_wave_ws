@@ -5,7 +5,6 @@ from rclpy.node import Node
 from sine_wave_pkg.srv import GetImage
 import cv2
 import numpy as np
-import base64
 
 class ImageServer(Node):
 
