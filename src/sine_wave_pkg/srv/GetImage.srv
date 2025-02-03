@@ -1,0 +1,7 @@
+string input_path
+---
+sensor_msgs/Image grayscale_image
+bool success
+int32[] message
+int32 height
+int32 width
