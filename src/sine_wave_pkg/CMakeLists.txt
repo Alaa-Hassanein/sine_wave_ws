@@ -45,8 +45,8 @@ install(TARGETS sine_wave_publisher_cpp sine_wave_subscriber_cpp
   DESTINATION lib/${PROJECT_NAME})
 
 install(PROGRAMS
-  scripts/server.py
-  scripts/client.py
+  scripts/gray_image_server.py
+  scripts/gray_image_client.py
   scripts/sine_wave_publisher.py
   scripts/sine_wave_subscriber.py
   DESTINATION lib/${PROJECT_NAME}
