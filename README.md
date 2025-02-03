@@ -48,7 +48,11 @@ To run the nodes, follow these steps:
 
     ros2 run sine_wave_pkg gray_image_client.py 
     ```
-
+## TEST
+1. Launch sine wave publsisher pytest
+    ```sh
+    ros2 launch sine_wave_pkg test_sine_wave_publisher_launch.py 
+    ```
 
 ## Example Usage
 After launching the sine wave publisher node, you can visualize the sine wave data using `rqt_plot` adn change parameters with `rqt_reconfigure`:
