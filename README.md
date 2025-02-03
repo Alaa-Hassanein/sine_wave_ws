@@ -58,7 +58,7 @@ To run the nodes, follow these steps:
 After launching the sine wave publisher node, you can visualize the sine wave data using `rqt_plot` adn change parameters with `rqt_reconfigure`:
 
 ```sh
-ros2 run rqt_plot rqt_plot /sine_wave
+ros2 run rqt_plot rqt_plot /sine_wave/data
 
 ros2 run rqt_reconfigure rqt_reconfigure
 ```
